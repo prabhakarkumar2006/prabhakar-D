@@ -1,0 +1,334 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<title>🎆 Happy Diwali from Prabhakar Kumar 🎆</title> 
+<style> 
+/* ---------- Reset & Layout ---------- */ 
+* { margin: 0; padding: 0; box-sizing: border-box; } 
+html,body { height: 100%; } 
+body { 
+    font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
+    /* DEEP BLUE BACKGROUND: Attractive night sky for fireworks */
+    background: radial-gradient(circle at bottom, #001f40, #000a1a); 
+    overflow: hidden; 
+    color: #ffd700; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 18px; 
+} 
+/* ---------- Heading ---------- */ 
+.heading { 
+    text-align: center; 
+    animation: glow 2s infinite alternate; 
+} 
+.heading h1 { 
+    font-size: 3rem; 
+    color: #ffd700; 
+    text-shadow: 0 0 20px #ffda6a, 0 0 40px #ffb100, 0 0 60px #ff8000; 
+    letter-spacing: 1px; 
+} 
+.heading p { 
+    margin-top: 6px; 
+    color: #ffcc66; 
+    text-shadow: 0 0 10px #ffb300; 
+    font-size: 1rem; 
+    opacity: 0.95; 
+} 
+@keyframes glow { 
+    from { 
+        text-shadow: 0 0 12px #ffb100, 0 0 24px #ff8000; 
+        transform: translateY(0); 
+    } 
+    to { 
+        text-shadow: 0 0 38px #ffd700, 0 0 80px #ff9c00; 
+        transform: translateY(-3px); 
+    } 
+} 
+/* ---------- Photo (glowing round) ---------- */ 
+.photo-container { 
+    width: 220px; 
+    height: 220px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 6px solid rgba(255,215,0,0.95); 
+    box-shadow: 0 0 50px rgba(255,179,0,0.18), 0 0 90px rgba(255,128,0,0.12); 
+    animation: pulse 3s infinite ease-in-out; 
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.03), rgba(0,0,0,0.15)); 
+} 
+.photo-container img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
+} 
+@keyframes pulse { 
+    0% { 
+        transform: scale(1); 
+    } 
+    50% { 
+        transform: scale(1.03); 
+        filter: drop-shadow(0 0 30px rgba(255,160,0,0.3)); 
+    } 
+    100% { 
+        transform: scale(1); 
+    } 
+} 
+/* ---------- Diya ---------- */ 
+.diya { 
+    position: relative; 
+    width: 120px; 
+    height: 70px; 
+    background: linear-gradient(180deg,#ff9b22,#ff6200); 
+    border-radius: 50% 50% 12% 12%; 
+    box-shadow: 0 0 30px 6px rgba(255,178,0,0.12); 
+    margin-top: 10px; 
+} 
+.flame { 
+    position: absolute; 
+    top: -46px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 26px; 
+    height: 48px; 
+    background: radial-gradient(circle at 50% 70%, #fff2af 0%, #ffd54f 30%, #ff7043 65%, #ff3d00 100%); 
+    border-radius: 50% 50% 20% 20%; 
+    animation: flameDance 1s infinite alternate; 
+    filter: blur(0.6px); 
+} 
+@keyframes flameDance { 
+    0% { 
+        transform: translateX(-50%) scale(1); 
+        opacity: 0.9; 
+        top: -46px; 
+    } 
+    100% { 
+        transform: translateX(-50%) scale(1.15); 
+        opacity: 1; 
+        top: -52px; 
+    } 
+} 
+/* ---------- Buttons ---------- */ 
+.controls { 
+    display: flex; 
+    gap: 12px; 
+    align-items: center; 
+    justify-content: center; 
+} 
+.btn { 
+    background: linear-gradient(45deg,#ff8000,#ffb300); 
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 28px; 
+    cursor: pointer; 
+    font-size: 1rem; 
+    box-shadow: 0 0 18px rgba(255,179,0,0.15); 
+    transition: transform .18s ease, box-shadow .18s ease; 
+} 
+.btn:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 0 36px rgba(255,140,0,0.25); 
+} 
+/* ---------- Footer ---------- */ 
+footer { 
+    position: absolute; 
+    bottom: 12px; 
+    color: #ffcc66; 
+    font-size: 0.95rem; 
+    text-shadow: 0 0 10px #ffaa00; 
+    opacity: 0.95; 
+} 
+/* ---------- Canvas & Particles ---------- */ 
+canvas#fireworks, canvas#stars { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    pointer-events: none; 
+    z-index: 0; 
+} 
+/* lanterns are DOM elements so they float above canvas but below main UI */ 
+.lantern { 
+    position: absolute; 
+    width: 42px; 
+    height: 56px; 
+    border-radius: 20px; 
+    background: radial-gradient(circle at 30% 20%, rgba(255,180,120,0.95), rgba(255,90,20,0.95)); 
+    box-shadow: 0 6px 16px rgba(0,0,0,0.45), 0 0 20px rgba(255,160,60,0.06); 
+    z-index: 1; 
+    transform-origin: center; 
+} 
+/* ---------- Play Overlay (autoplay fallback) ---------- */ 
+.play-overlay { 
+    position: fixed; 
+    inset: 0; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 999; 
+    pointer-events: auto; 
+} 
+.play-card { 
+    background: rgba(2,2,2,0.66); 
+    border: 1px solid rgba(255,200,0,0.12); 
+    padding: 18px 22px; 
+    border-radius: 12px; 
+    text-align: center; 
+    backdrop-filter: blur(6px); 
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
+} 
+.play-card button { 
+    margin-top: 10px; 
+    padding: 10px 18px; 
+    border-radius: 999px; 
+    font-weight: 600; 
+    font-size: 1rem; 
+} 
+/* responsive spacing */ 
+@media (max-width:480px) { 
+    .heading h1 { 
+        font-size: 2rem; 
+    } 
+    .photo-container { 
+        width: 160px; 
+        height: 160px; 
+    } 
+    .diya { 
+        width: 90px; 
+        height: 56px; 
+    } 
+} 
+</style> 
+</head> 
+<body> 
+<canvas id="stars"></canvas> 
+<canvas id="fireworks"></canvas> 
+<div class="heading" style="z-index:2;"> 
+<h1>🪔 Happy Diwali from Prabhakar Kumar 🪔</h1> 
+<p>May your life glow with joy, prosperity and sparkle ✨</p> 
+</div> 
+<div class="photo-container" title="Prabhakar Kumar" style="z-index:2;"> 
+<img src="prabhakar.jpg" alt="Prabhakar Kumar"> 
+</div> 
+<div class="diya" style="z-index:2;"> 
+<div class="flame"></div> 
+</div> 
+<div class="controls" style="z-index:2;"> 
+<button class="btn" id="celebrateBtn">🎇 Celebrate With Me 🎇</button> 
+<button class="btn" id="muteBtn">🔊 Mute</button> 
+</div> 
+<footer style="z-index:2;">© 2025 Designed with 💛 by Prabhakar Kumar</footer> 
+<audio id="bgMusic" src="prabhakar song .mp3" loop preload="auto"></audio> 
+<audio id="fwSound" src="https://cdn.pixabay.com/download/audio/2023/07/13/audio_4d16a03f12.mp3?filename=firework-explosion-14850.mp3" preload="auto"></audio> 
+<div id="playOverlay" class="play-overlay" style="display:none;"> 
+<div class="play-card"> 
+<div style="color:#ffd86b; font-size:1.2rem;">Press to play soft Diwali music</div> 
+<div style="color:#fff7e6; font-size:0.92rem; margin-top:6px;">(autoplay may be blocked by your browser)</div> 
+<button id="playAudioBtn" class="btn">▶️ Play Music</button> 
+</div> 
+</div> 
+<script> 
+/* -------------------- Stars Canvas (rising from bottom) -------------------- */ 
+(function(){ const canvas = document.getElementById('stars'); const ctx = canvas.getContext('2d'); let w = canvas.width = innerWidth; let h = canvas.height = innerHeight; const stars = []; function rand(min,max){ return Math.random()*(max-min)+min; } for(let i=0;i<140;i++){ stars.push({ x: rand(0,w), y: rand(h*0.6, h), r: rand(0.6,2.4), vy: rand(-0.2,-1.2), alpha: rand(0.2,0.95), twinkle: Math.random()*0.03 }); } function updateStars(){ ctx.clearRect(0,0,w,h); for(const s of stars){ s.y += s.vy; s.x += Math.sin((s.y + s.r)*0.01)*0.2; s.alpha += (Math.random()-0.5)*s.twinkle; if(s.alpha > 1) s.alpha = 1; if(s.alpha < 0.08) s.alpha = 0.08; if(s.y < -10){ s.y = h + 20; s.x = rand(0,w); } ctx.beginPath(); ctx.globalAlpha = s.alpha; ctx.fillStyle = "rgba(255,230,180,1)"; ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill(); } } function loop(){ updateStars(); requestAnimationFrame(loop); } loop(); window.addEventListener('resize', () => { w = canvas.width = innerWidth; h = canvas.height = innerHeight; }); })(); 
+/* -------------------- Fireworks Canvas (Increased Bursts) -------------------- */ 
+(function(){ const canvas = document.getElementById("fireworks"); const ctx = canvas.getContext("2d"); let w = canvas.width = window.innerWidth; let h = canvas.height = window.innerHeight; const fireworks = []; class Firework { constructor(x,y,colors){ this.x = x; this.y = y; this.colors = colors; this.particles = []; for(let i=0;i<80;i++){ // Increased particle count
+                    const angle = Math.random() * Math.PI * 2; 
+                    const speed = Math.random() * 7 + 2; 
+                    this.particles.push({ 
+                        x: this.x, 
+                        y: this.y, 
+                        vx: Math.cos(angle) * speed, 
+                        vy: Math.sin(angle) * speed, 
+                        alpha: 1, 
+                        size: Math.random()*2.8 + 1.2, 
+                        color: colors[Math.floor(Math.random()*colors.length)] 
+                    }); 
+                } 
+            } 
+            update(){ 
+                this.particles.forEach(p => { 
+                    p.x += p.vx; 
+                    p.y += p.vy; 
+                    p.vy += 0.06; 
+                    p.vx *= 0.995; 
+                    p.alpha -= 0.016; 
+                }); 
+            } 
+            draw(){ 
+                this.particles.forEach(p => { 
+                    if(p.alpha <= 0) return; 
+                    ctx.globalAlpha = Math.max(0, p.alpha); 
+                    ctx.fillStyle = p.color; 
+                    ctx.beginPath(); 
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); 
+                    ctx.fill(); 
+                }); 
+            } 
+        } 
+        function animate(){ 
+            requestAnimationFrame(animate); 
+            ctx.fillStyle = "rgba(0,0,0,0.14)"; 
+            ctx.fillRect(0,0,w,h); 
+            for(let i=fireworks.length-1;i>=0;i--){ 
+                const fw = fireworks[i]; 
+                fw.update(); 
+                fw.draw(); 
+                if(fw.particles.every(p => p.alpha <= 0.01)) fireworks.splice(i,1); 
+            } 
+        } 
+        animate(); 
+        // expose addFirework globally 
+        window.addFirework = function(){ 
+            // Festive colors: Red, Gold, Pink, Cyan, White, Orange
+            fireworks.push(new Firework(Math.random()*w, Math.random()*h*0.45, ['#FF4500','#FFD700','#FF1493','#00BFFF','#FFFFFF','#FF8C00'])); 
+        }; 
+        window.addBurst = function(x,y){ 
+            fireworks.push(new Firework(x,y, ['#ffe082','#ff7043','#ffd54f','#ffffff','#80deea'])); 
+        }; 
+        window.addFireworksMultiple = function(n=8){ // Increased initial fireworks
+            for(let i=0;i<n;i++){ 
+                setTimeout(() => { 
+                    window.addFirework(); 
+                }, i*180); 
+            } 
+        } 
+        window.addFireworkAt = function(x,y){ 
+            fireworks.push(new Firework(x,y, ['#ff4500','#ffd700','#ff69b4','#00ffff','#ffffff'])); 
+        } 
+        window.addFireworksMultiple(); 
+        window.addEventListener('resize', () => { 
+            w = canvas.width = window.innerWidth; 
+            h = canvas.height = window.innerHeight; 
+        }); 
+    })(); 
+    /* -------------------- Floating Lanterns (DOM) -------------------- */ 
+    (function(){ for(let i=0;i<12;i++){ const lantern = document.createElement('div'); lantern.className = 'lantern'; lantern.style.left = (Math.random()*90) + 'vw'; lantern.style.top = (80 + Math.random()*16) + 'vh'; lantern.style.opacity = (0.6 + Math.random()*0.5); const duration = 9 + Math.random()*8; lantern.style.transition = `transform ${duration}s linear, top ${duration}s linear, opacity ${duration}s linear`; document.body.appendChild(lantern); (function(el,dur){ setTimeout(function rise(){ el.style.transform = `translateY(-${110 + Math.random()*60}vh) rotate(${(Math.random()*40)-20}deg) scale(${0.9 + Math.random()*0.3})`; el.style.opacity = 0; setTimeout(() => { el.style.transition = 'none'; el.style.top = (90 + Math.random()*6) + 'vh'; el.style.left = (Math.random()*92) + 'vw'; el.style.transform = 'translateY(0) rotate(0) scale(1)'; el.style.opacity = (0.6 + Math.random()*0.4); void el.offsetWidth; el.style.transition = `transform ${dur}s linear, top ${dur}s linear, opacity ${dur}s linear`; setTimeout(rise, 120 + Math.random()*800); }, dur*1000 + 300); }, Math.random()*1200); })(lantern, duration); } })(); 
+    /* -------------------- Audio: autoplay attempt, fallback to overlay -------------------- */ 
+    (function(){ const bg = document.getElementById('bgMusic'); const fw = document.getElementById('fwSound'); const playOverlay = document.getElementById('playOverlay'); const playBtn = document.getElementById('playAudioBtn'); const muteBtn = document.getElementById('muteBtn'); let isMuted = false; function tryAutoplay(){ bg.volume = 0.55; bg.play().then(()=> { playOverlay.style.display = 'none'; muteBtn.textContent = '🔊 Mute'; }).catch((e) => { playOverlay.style.display = 'flex'; console.warn('Autoplay blocked:', e); }); } function userGestureHandler(){ tryAutoplay(); window.removeEventListener('pointerdown', userGestureHandler); } window.addEventListener('pointerdown', userGestureHandler, { once: true }); playBtn.addEventListener('click', () => { bg.play().then(()=> { playOverlay.style.display = 'none'; }).catch(()=> { }); }); const celebrateBtn = document.getElementById('celebrateBtn'); celebrateBtn.addEventListener('click', () => { 
+        // Increased bursts for "Celebrate" button
+        for(let i=0;i<10;i++){ 
+            setTimeout(()=> { 
+                const x = Math.random() * window.innerWidth; 
+                const y = Math.random() * window.innerHeight * 0.45; 
+                window.addFireworkAt(x,y); 
+            }, i * 150); 
+        } 
+        try { fw.currentTime = 0; fw.play(); } catch(e) { /* ignore */ } 
+    }); 
+    muteBtn.addEventListener('click', () => { 
+        isMuted = !isMuted; 
+        bg.muted = isMuted; 
+        fw.muted = isMuted; 
+        muteBtn.textContent = isMuted ? '🔇 Muted' : '🔊 Mute'; 
+    }); 
+    tryAutoplay(); 
+})(); 
+// small UX: clicking anywhere also triggers a tiny burst near the cursor (function(){ document.addEventListener('click', function(e){ const x = e.clientX || window.innerWidth/2; const y = e.clientY || window.innerHeight/2; window.addBurst(x,y); }); })(); 
+</script> 
+</body> 
+</html>
